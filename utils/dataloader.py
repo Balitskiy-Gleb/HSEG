@@ -97,7 +97,8 @@ def create_one_hierarchy_data(data_dir: str, data_save_dir: str, classes_tree: D
     if not os.path.exists(data_save_dir):
         os.mkdir(data_save_dir)
     for i_file, file in enumerate(gt_filenames):
-        print(f"{i_file}/{len(gt_filenames)}")
+        if i_file % 500 == 0:
+            print(f"{i_file}/{len(gt_filenames)}")
         gt = np.load(os.path.join(data_dir, file))
         gt_one_hot = create_one_hot_numpy_fast(gt, classes_tree)
         save_gt_numpy(data_save_dir, gt_one_hot, file)
