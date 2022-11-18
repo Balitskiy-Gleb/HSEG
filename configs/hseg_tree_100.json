@@ -1,0 +1,22 @@
+{
+  "exp_name": "hseg_tree_100",
+  "encoder": "resnet18",
+  "pretrained": true,
+  "n_classes": 10,
+  "device": "cuda:0",
+  "root_dir": "/gpfs/data/gpfs0/gleb.balitskiy/HSEG_test",
+  "root_data_dir": "data/pascal_part/",
+  "img_dir": "JPEGImages",
+  "gt_dir": "gt_masks_hie",
+  "train_sample_ids_file": "train_id.txt",
+  "val_sample_ids_file": "val_id.txt",
+  "optimizer": "sgd",
+  "lr": 0.01,
+  "batch_size": 15,
+  "metrics": "mIoU",
+  "criterion": "FocalTreeLoss",
+  "gamma": 0,
+  "n_epochs": 100,
+  "save_epoch": 10,
+  "eval_checkpoint": "./experiments/hseg_tree_100/model_checkpoints/checkpoint_99.pt"
+}

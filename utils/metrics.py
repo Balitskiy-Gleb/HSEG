@@ -34,14 +34,14 @@ class ScoreMeter:
         for key in scores.keys():
             self.int_un[key] += scores[key]
             self.num_samples += 1
-            self.mean_scores[key] = (self.int_un[key][:, 0] / self.int_un[key][:, 1]).mean()
+            self.mean_scores[key] = (self.int_un[key][1:, 0] / self.int_un[key][1:, 1]).mean()
         return scores
 
     def clear(self):
         self.num_samples = 0
-        self.int_un = {"mIoU1": torch.zeros((self.config["n_classes"], 2)),
-                       "mIoU2": torch.zeros((self.config["n_classes"], 2)),
-                       "mIoU3": torch.zeros((self.config["n_classes"], 2))}
+        self.int_un = {"mIoU1": torch.zeros((7, 2)),
+                       "mIoU2": torch.zeros((3, 2)),
+                       "mIoU3": torch.zeros((2, 2))}
         self.mean_scores = {"mIoU1": 0, "mIoU2": 0, "mIoU3": 0}
 
     def get_mean(self):
