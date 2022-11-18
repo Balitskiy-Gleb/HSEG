@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 data
 data/*
+tensorboard/*
+experiments/*
+pretrained_models/*
 # C extensions
 *.so
 
