@@ -78,17 +78,15 @@ python3 train.py --cfg PATH_TO_CONFIG
 ```
 The config used is the same as for train procedure. Only one need to fill the parameter ```config["eval_checkpoint"]```.
 ## Experiments Result: 
-ince the objects in space are connected, that is, they have a hierarchy, it seems that using this hierarchy information during training we can improve the main metrics. The main problem is to feed this information to the model. One approach is to modify the loss function so that it penalizes more for not respecting the hierarchy. According to this principle, a tree-loss was formed based a hierarchy-coherent scores. Using $\mathcal{T}$-properties (see. [paper](https://www.semanticscholar.org/paper/MultiLabel-Classification-on-Tree-and-Hierarchies-Bi-Kwok/6853ac3b9a4d5fe940356e44e3cb99d84490a484])) author constructed new score vector (output of model), to penalize more for wrong prediction and not satisfying the hierarchy.  
+ince the objects in space are connected, that is, they have a hierarchy, it seems that using this hierarchy information during training we can improve the main metrics. The main problem is to feed this information to the model. One approach is to modify the loss function so that it penalizes more for not respecting the hierarchy. According to this principle, a tree-loss was formed based a hierarchy-coherent scores. Using $\mathcal{T}$-properties (see. [paper](https://www.semanticscholar.org/paper/MultiLabel-Classification-on-Tree-and-Hierarchies-Bi-Kwok/6853ac3b9a4d5fe940356e44e3cb99d84490a484])) author constructed new score vector (output of model), to penalize more for wrong prediction and not satisfying the hierarchy. This loss called Tree-Min Loss. We compare it to BCE Loss constructed for all classes in hierarchy.
 We choose ResNet18 as the backbone(encoder). 
 The decoder is based on Unet architecture. 
 On Figures ... one can see the results of training. 
 You can see that ... 
 
 Let's look on the samples. 
-S
-The main expected result of this methods is to impove semantic segmention using the hierarchy infromation. The idea is that the 
-The idea of improvement via tree-min loss 
-The basic improvement via Tree-min Loss
+
+The main expected result of this methods is to impove semantic segmention using the hierarchy infromation. The idea is that the . 
 
 
 
