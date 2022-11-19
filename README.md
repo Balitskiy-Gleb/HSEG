@@ -81,13 +81,42 @@ The config used is the same as for train procedure. Only one need to fill the pa
 ince the objects in space are connected, that is, they have a hierarchy, it seems that using this hierarchy information during training we can improve the main metrics. The main problem is to feed this information to the model. One approach is to modify the loss function so that it penalizes more for not respecting the hierarchy. According to this principle, a tree-loss was formed based a hierarchy-coherent scores. Using $\mathcal{T}$-properties (see. [paper](https://www.semanticscholar.org/paper/MultiLabel-Classification-on-Tree-and-Hierarchies-Bi-Kwok/6853ac3b9a4d5fe940356e44e3cb99d84490a484])) author constructed new score vector (output of model), to penalize more for wrong prediction and not satisfying the hierarchy. This loss called Tree-Min Loss. We compare it to BCE Loss constructed for all classes in hierarchy.
 We choose ResNet18 as the backbone(encoder). 
 The decoder is based on Unet architecture. 
-On ![figure](resourse/loss_train.png) one can see the train loss for two compared loss fuctions. They are almost the same. In our opinion, it is due to the about equal proportion of $\mathcal{T}$ -positive and $\mathcal{T}$-negative paths, and so the loss is modified in two directions. The $mIoU^1$, $mIoU^2$ and $mIoU^3$ are presented on ![figure](resourse/mIOU1.png), ![](resourse/mIOU2.png),![](resourse/mIOU3.png).
-You can see that Tree-Min Loss appeared to be worse for multiclass (level 1) classification, even having the same $mIoU^3$ score on body/background labeling. This tells us that with our parameters and segmentation model, tree-min loss does not allow for better segmentation. But, also let's look on the samples. 
-![bce_pred](resourse/bce/pred_mIoU1_img_502.png)
-![tree_pred](resourse/tree/pred_mIoU1_img_502.png)
-![gt](resourse/bce/pred_mIoU1_mask_502.png)
-The main expected result of this methods is to impove semantic segmention using the hierarchy infromation. The idea is that the . 
 
+<img src="https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/loss_train.png" alt="trainloss" title="Train loss">
+
+On [figure](https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/loss_train.png) one can see the train loss for two compared loss fuctions. They are almost the same. In our opinion, it is due to the about equal proportion of $\mathcal{T}$ -positive and $\mathcal{T}$-negative paths, and so the loss is modified in two directions. The $mIoU^1$, $mIoU^2$ and $mIoU^3$ are presented on the followinf figures:
+
+<img src="https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/mIOU1.png" alt="mIOU1" title="mIOU1">
+
+<img src="https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/mIOU2.png" alt="mIOU2" title="mIOU2">
+
+<img src="https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/mIOU3.png" alt="mIOU3" title="mIOU3">
+
+You can see that Tree-Min Loss appeared to be worse for multiclass (level 1) classification, even having the same $mIoU^3$ score on body/background labeling. This tells us that with our parameters and segmentation model, tree-min loss does not allow for better segmentation. But, also let's look on the samples. 
+For BCE loss:
+
+<img src="https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/bce/pred_mIoU1_img_502.png" alt="BCE Loss Example" title="BCE Loss Example">
+For Tree loss:
+
+<img src="https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/tree/pred_mIoU1_img_502.png" alt="Tree Loss Example" title="Tree Loss Example">
+Ground Truth:
+
+<img src="https://github.com/Balitskiy-Gleb/HSEG/blob/main/resourse/bce/pred_mIoU1_mask_502.png" alt="GT Example" title="GT Example">
+
+We see the same picture in this example, the model with treу-min loss we worse at recognizing small parts like hands. But, steal good at distinguish the more generalized concepts. The results are not expected, but may be the the Focal Loss we help to solve this problem. It will help to increase the difference between the losses values and  moreover it can help to increase overall score. 
+Final Scores for 100 epochs:
+
+| Loss          | $mIoU^1$      | $mIoU^2$      | $mIoU^3$      |
+| ------------- | ------------- | ------------- | ------------- |
+| Tree          | 46.93         | 66.17         | 81.61         |
+| BCE           | 48.68         | 66.39         | 81.93         |
+### Possible Modifications
+1. Weights in loss. Some classes are small, some are big on the picture. 
+2. In tree loss we predict the path from leaf to root in hierarchy. And choose with the maximum sum score. Longer paths are easier to choose. Also include weights for short paths. Or, maybe new prediction rule.
+3. Better augmentation, rescaling.
+4. Architecture of the decoder. Something new: MaskFormer, HRNet, OCRNet etc.
+5. Powerful backbone. 
+6. The triplet loss, to organize embedding space.
 
 
 
