@@ -42,7 +42,7 @@ Also, for improvement we consider the Tree-Min Loss.
 1. Clone repository:  ``` clone git@github.com:Balitskiy-Gleb/HSEG.git```
 2. Go to root project directory ```HSEG```. 
 3. To simple usage of configs, put the dataset in ```root_dir/data/pascal_part```
-4. Create new conda environment named ```hseg_env``` via ```scripts/create_hseg_env.sh``` and activate it.
+4. Create new conda environment named ```hseg_env``` via ```tools/create_hseg_env.sh``` and activate it.
 5. Run ```tools/dataset_hie_enc.py to create hierarchy encoded data(To speed up training).
 ## Project Structure 
 1. All part of segmentation model contained in ```./models```. 
