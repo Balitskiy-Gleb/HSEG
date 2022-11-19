@@ -135,7 +135,9 @@ class TrainManager:
     def train(self):
         for epoch in tqdm(range(self.config["n_epochs"]), desc="Epoch:"):
             self.cur_epoch = epoch
+            self.hseg.train()
             self.train_one_epoch()
+            self.hseg.eval()
             self.validate()
             self.finish_epoch()
         self.writer.close()

@@ -92,13 +92,14 @@ class EvalManager:
     def save_level_masks(self, prediction, level, name_score, score):
         pred_img = self.toPIL(prediction[0].type(torch.uint8))
         pred_img.putpalette(self.colors[level])
-        pic_name = "pred_" + name_score + "_" + str(score.item()) + ".png"
+        pic_name = "pred_" + name_score + "_" + str(self.cur_batch)+ ".png"
         save_path = os.path.join(self.save_dir_paths[0], pic_name)
         pred_img.save(save_path)
 
     def evaluate(self):
         loss_v = 0
         self.cur_batch = 0
+        self.hseg.eval()
         with torch.no_grad():
             for img, gt in tqdm(self.val_loader, desc="Test Batch:"):
                 self.cur_batch += 1

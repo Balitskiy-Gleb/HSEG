@@ -51,14 +51,13 @@ class ScoreMeter:
 def iou_custom(preds, target, num_classes=7, device='cpu'):
     iou = torch.zeros((num_classes, 2))
     iou = iou.to(device)
-    classes = target.unique()
-    for cl in classes:
+    for cl in range(num_classes):
         preds_cl = (preds == cl)
         target_cl = (target == cl)
-        inter = torch.logical_and(preds_cl, target_cl).sum()
-        union = torch.logical_or(preds_cl, target_cl).sum()
-        iou[cl, 0] = inter
-        iou[cl, 1] = union
+        inter = torch.logical_and(preds_cl, target_cl)
+        union = torch.logical_or(preds_cl, target_cl)
+        iou[cl, 0] = inter.sum()
+        iou[cl, 1] = union.sum()
     return iou
 
 
