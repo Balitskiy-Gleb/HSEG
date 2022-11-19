@@ -4,7 +4,7 @@
   "pretrained": true,
   "n_classes": 10,
   "device": "cuda:0",
-  "root_dir": "/gpfs/data/gpfs0/gleb.balitskiy/HSEG_test",
+  "root_dir": "/gpfs/data/gpfs0/gleb.balitskiy/HSEG",
   "root_data_dir": "data/pascal_part/",
   "img_dir": "JPEGImages",
   "gt_dir": "gt_masks_hie",

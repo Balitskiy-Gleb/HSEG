@@ -2,14 +2,14 @@ import json
 import os
 from torch.cuda import is_available
 config = {}
-config["exp_name"] = "hseg_bce_100"
+config["exp_name"] = "hseg_tree_100"
 config["encoder"] = 'resnet18'
 config["pretrained"] = True
 config["n_classes"] = 10
 config["device"] = 'cuda:0' if is_available() else 'cpu'
 #config["device"] = 'cpu'
 ## Dirs configuration
-abs_path = os.path.abspath("../HSEG_test")
+abs_path = os.path.abspath("../HSEG")
 config["root_dir"] = abs_path
 config["root_data_dir"] = "data/pascal_part/"
 config["img_dir"] = "JPEGImages"
@@ -22,7 +22,7 @@ config["optimizer"] = "sgd"
 config["lr"] = 0.01
 config["batch_size"] = 15
 config["metrics"] = "mIoU"
-config["criterion"] = 'BCE'
+config["criterion"] = 'FocalTreeLoss'
 config["gamma"] = 0
 config["n_epochs"] = 100
 config["save_epoch"] = 10
