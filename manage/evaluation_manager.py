@@ -73,21 +73,21 @@ class EvalManager:
             predictions_eval[:, key, :, :] = prediction[:, [key] + pascal_root_leaf_paths[key], :, :].sum(1)
         predictions_eval = predictions_eval.max(1)[1]
         gt_class = gt[:, 0:7, :, :].max(1)[1]
-        self.save_level_masks(predictions_eval, 1, "mIoU1", scores["mIoU1"])
-        self.save_level_masks(gt_class, 1, "mIoU1", scores["mIoU1"])
+        self.save_level_masks(predictions_eval, 1, "mIoU1_img", scores["mIoU1"])
+        self.save_level_masks(gt_class, 1, "mIoU1_mask", scores["mIoU1"])
 
         for key in pascal_root_leaf_paths.keys():
             if key == 0:
                 continue
             predictions_eval[predictions_eval == key] = pascal_root_leaf_paths[key][0] - 7
         gt_class = gt[:, [0, 8, 9], :, :].max(1)[1]
-        self.save_level_masks(predictions_eval, 2, "mIoU2", scores["mIoU2"])
-        self.save_level_masks(gt_class, 2, "mIoU2", scores["mIoU2"])
+        self.save_level_masks(predictions_eval, 2, "mIoU2_img", scores["mIoU2"])
+        self.save_level_masks(gt_class, 2, "mIoU2_mask", scores["mIoU2"])
 
         predictions_eval[predictions_eval != 0] = 1
         gt_class = gt[:, [0, 7], :, :].max(1)[1]
-        self.save_level_masks(predictions_eval, 3, "mIoU3", scores["mIoU3"])
-        self.save_level_masks(gt_class, 3, "mIoU3", scores["mIoU3"])
+        self.save_level_masks(predictions_eval, 3, "mIoU3_img", scores["mIoU3"])
+        self.save_level_masks(gt_class, 3, "mIoU3_mask", scores["mIoU3"])
 
     def save_level_masks(self, prediction, level, name_score, score):
         pred_img = self.toPIL(prediction[0].type(torch.uint8))
